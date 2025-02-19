@@ -1,6 +1,7 @@
 require('dotenv/config');
 const express = require('express');
 const app = express();
+const cors = require("cors");
 const port = process.env.PORT || 5780; 
 const connect = require('./config/db'); 
 const userRoute = require('./routes/auth/userRoute'); 
@@ -13,6 +14,16 @@ const productSearchRoute = require ('./routes/shop/search');
 const addressRoute = require ('./routes/shop/address');
 const upload = require('./config/multerConfig');  
 const { uploadFile } =require ('./utils/fileUploadController')
+
+
+const corsOptions = {
+  origin: "http://localhost:5173", // Update this with your frontend URL
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type, Authorization",
+  credentials: true, // Allow cookies if needed
+};
+
+app.use(cors(corsOptions));
 
 // Middleware to parse JSON requests
 app.use(express.json());
